@@ -1,0 +1,64 @@
+/* Heading and paragraph at the top: centred, with space around them */
+.hero-text {
+  text-align: center;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+/* Carousel picture: same height, centred in the slide */
+.carousel-item img {
+  display: block;
+  margin: auto;
+  height: 400px;
+  width: 900px;
+}
+
+/* Arrows turn them from white to black so they are visible on a white background */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+/* Space above the cards */
+.cards {
+  margin-top: 100px;
+}
+
+/* Cards ki chi kam pictures di aghai heights same shu di sara asi all had different heights */
+.card-img-top {
+    /* aspect ratio keeps the size of the images in cards the same in all types of screens,
+    be it large, medium or small. plus, 3/5 means ke each pictureis 3parts wide and 5 parts tall. */
+ aspect-ratio: 3 / 5; 
+  object-fit: cover;
+}
+
+/* Footer */
+footer {
+  background-color: #212529;
+  color: whitesmoke;
+  padding: 20px;
+  margin-top: auto;   /* auto pushes it to the bottom */
+  width: 100%;
+}
+
+/* About section spacing */
+.about-us {
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+/* Why Choose Us section spacing */
+.why-us {
+  margin-top: 100px;
+}
+
+/*  Why People Stick Around(trust) section spacing */
+.trust {
+  margin-top: 100px;
+}
+
+/* FAQ section spacing */
+.faq {
+  margin-top: 100px;
+  margin-bottom: 60px;
+}
