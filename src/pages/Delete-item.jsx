@@ -48,13 +48,7 @@ function DeleteItem() {
             <label htmlFor="confirmRemoval" className="form-check-label">
               I confirm this cycle should be permanently removed from inventory
             </label>
-          </div>
-{/* 
-          <div className="mb-4">
-            <label htmlFor="rentalPrice" className="form-label">Rental Price per Day (Rs.)</label>
-            <input type="number" className="form-control" id="rentalPrice" min="0" />
-          </div> */}
-
+</div>
           <div className="mb-4">
             <button
               type="button"
