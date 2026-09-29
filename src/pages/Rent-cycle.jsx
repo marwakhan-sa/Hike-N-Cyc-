@@ -11,9 +11,9 @@ function RentCycle() {
             <label htmlFor="selectCycle" className="form-label">Choose a Cycle</label>
             <select className="form-select" id="selectCycle">
               <option value="">-- Select a cycle --</option>
-              <option value="1">Trek Marlin 5 - Mountain Bike (Rs. 1500/day)</option>
-              <option value="2">Giant Escape 3 - Hybrid Bike (Rs. 1200/day)</option>
-              <option value="3">Cannondale Quick 4 - Road Bike (Rs. 1800/day)</option>
+              <option value="1">Trek Marlin 5 - Mountain Bike </option>
+              <option value="2">Giant Escape 3 - Hybrid Bike </option>
+              <option value="3">Cannondale Quick 4 - Road Bike </option>
             </select>
           </div>
 
@@ -41,9 +41,7 @@ function RentCycle() {
             <button
               type="submit"
               className="form-control text-white border-0"
-              style={{ backgroundColor: "#254631" }}
-            >
-              Confirm Rental
+              style={{ backgroundColor: "#254631" }}> Confirm Rental
             </button>
           </div>
         </form>
