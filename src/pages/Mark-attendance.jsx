@@ -16,24 +16,22 @@ function MarkAttendance() {
             </select>
           </div>
 
-          <hr className="mb-4" />
-
           <div className="mb-4">
             <label className="form-label">Participants Present</label>
 
             <div className="form-check">
               <input type="checkbox" className="form-check-input" id="p1" />
-              <label htmlFor="p1" className="form-check-label">Ali Raza</label>
+              <label htmlFor="p1" className="form-check-label">Khan</label>
             </div>
 
             <div className="form-check">
               <input type="checkbox" className="form-check-input" id="p2" />
-              <label htmlFor="p2" className="form-check-label">Sara Khan</label>
+              <label htmlFor="p2" className="form-check-label">Marwa</label>
             </div>
 
             <div className="form-check">
               <input type="checkbox" className="form-check-input" id="p3" />
-              <label htmlFor="p3" className="form-check-label">Hamza Ahmed</label>
+              <label htmlFor="p3" className="form-check-label">Haider</label>
             </div>
           </div>
 

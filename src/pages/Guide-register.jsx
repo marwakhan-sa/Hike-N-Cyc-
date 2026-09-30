@@ -40,7 +40,7 @@ function GuideRegister() {
           <div className="mb-4">
             <label htmlFor="guideType" className="form-label">Guiding Speciality</label>
             <select className="form-select" id="guideType">
-              <option value="">-- Select speciality --</option>
+              <option value="">Select speciality</option>
               <option value="hiking">Hiking</option>
               <option value="cycling">Cycling</option>
               <option value="both">Both</option>
@@ -54,7 +54,7 @@ function GuideRegister() {
               className="form-control"
               id="experience"
               min="0"
-              placeholder="e.g. 3"
+              placeholder="e.g. 2"
             />
           </div>
 

@@ -8,10 +8,12 @@ import CustomerRegister from "./pages/Customer-register.jsx";
 import RentCycle from "./pages/Rent-cycle";
 import CustomerLogin from "./pages/Customer-login.jsx";
 import SubmitComplaint from "./pages/Submit-complaint.jsx";
-import Login from "./pages/login.jsx";
 import MarkAttendance from "./pages/Mark-attendance.jsx";
 import AssignedEvents from "./pages/Assigned-events.jsx";
 import GuideRegister from "./pages/Guide-register.jsx";
+import GuideLogin from "./pages/Guide-login.jsx";
+import ViewmyBookings from "./pages/View-my-bookings.jsx";
+import CancelBooking from "./pages/Cancel-booking.jsx";
 
 function App() {
   return (
@@ -25,11 +27,14 @@ function App() {
       {/* <CustomerRegister /> */}
       {/* <CustomerLogin /> */}
       {/* <RentCycle /> */}
+       {/* <ViewmyBookings /> */}
+       {/* <CancelBooking /> */}
       {/* <SubmitComplaint /> */}
-      {/* <Login/> */}
-      {/* <MarkAttendance /> */}
+      {/* <GuideRegister /> */}
+      {/* <GuideLogin /> */}
+      <MarkAttendance />
       {/* <AssignedEvents /> */}
-      <GuideRegister />
+      
     </>
   );
 }

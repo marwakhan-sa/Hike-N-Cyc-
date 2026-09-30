@@ -1,6 +1,6 @@
 import logo from "../assets/logo.png";
 
-function Login() {
+function GuideLogin() {
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
       <div className="container pt-5 pb-5 col-md-4">
@@ -11,20 +11,10 @@ function Login() {
             className="mx-auto d-block img-fluid mb-3"
             style={{ height: "80px" }}
           />
-          <h1 className="fw-bold">Login</h1>
+          <h1 className="fw-bold">Guide Login</h1>
         </div>
 
         <form>
-          <div className="mb-4">
-            <label htmlFor="role" className="form-label">Login As</label>
-            <select className="form-select" id="role">
-              <option value="">-- Select role --</option>
-              <option value="admin">Admin</option>
-              <option value="customer">Customer</option>
-              <option value="guide">Guide</option>
-            </select>
-          </div>
-
           <div className="mb-4">
             <label htmlFor="email" className="form-label">Email</label>
             <input
@@ -60,4 +50,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default GuideLogin;
