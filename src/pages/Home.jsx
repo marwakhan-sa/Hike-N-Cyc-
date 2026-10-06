@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import hikeImg from '../assets/hike.jpeg'
 import cycleRental from '../assets/cycle-rental.jpeg'
 import cyclinglImg from '../assets/cycling.jpeg'
@@ -6,18 +7,27 @@ import restImg from '../assets/rest.jpeg'
 import cyclesImg from '../assets/cycles.jpeg'
 import ourRide from '../assets/our-ride.jpeg'
 import aboutUs from '../assets/who-are-we.jpeg'
+// import Menu from '../Menu'
 
 export default function Home () {
   return (
     <>
+    {/* <header className="bg-dark text-white p-3">
+        <div className="container d-flex flex-wrap gap-3">
+          <Menu />
+        </div>
+      </header> */}
+
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
-          <a className="navbar-brand" href="#home">Hike N Cyc</a>
+          <Link className="navbar-brand" to="#home">Hike N Cyc</Link>
           <div id="menu">
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item"><a className="nav-link" href="#home">Home</a></li>
-              <li className="nav-item"><a className="nav-link" href="#plans">Our Plans</a></li>
-              <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
+              <li className="nav-item"><Link className="nav-link" to="#home">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="#plans">Our Plans</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/customerLogin">Login</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/customerRegister">Register</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="#contact">Contact</Link></li>
             </ul>
           </div>
         </div>
@@ -26,7 +36,7 @@ export default function Home () {
       <div id="home" className="hero-text" style={{ backgroundColor: 'beige' }}>
         <h1>Welcome to Hike N Cyc</h1>
         <p>Ride. Hike. Connect.</p>
-        <a href="#plans" className="btn btn-warning">See Our Plans</a>
+        <Link to="#plans" className="btn btn-warning">See Our Plans</Link>
       </div>
 
       <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
@@ -78,7 +88,7 @@ export default function Home () {
               <div className="card-body">
                 <h5 className="card-title">Saturday Hike</h5>
                 <p className="card-text">Join our one day hike trip in Islamabad. Registration fee is Rs. 400.</p>
-                <a href="#" className="btn btn-success">Register</a>
+                <Link to="/customerRegister" className="btn btn-success">Register</Link>
               </div>
             </div>
           </div>
@@ -89,7 +99,7 @@ export default function Home () {
               <div className="card-body">
                 <h5 className="card-title">Sunday Cycling</h5>
                 <p className="card-text">Join our group ride, for example F-8 to Faisal Mosque. Registration fee is Rs. 400.</p>
-                <a href="#" className="btn btn-success">Register</a>
+                <Link to="/customerRegister" className="btn btn-success">Register</Link>
               </div>
             </div>
           </div>
@@ -100,7 +110,7 @@ export default function Home () {
               <div className="card-body">
                 <h5 className="card-title">Cycle Rental</h5>
                 <p className="card-text">Don't have a cycle? Rent one for Rs. 1,500 and pick it up on the day of the ride.</p>
-                <a href="#" className="btn btn-success">Rent Now</a>
+                <Link to="/rentCycle" className="btn btn-success">Rent Now</Link>
               </div>
             </div>
           </div>
@@ -172,47 +182,47 @@ export default function Home () {
         </div>
       </div>
 
-     <div id="faq" className="container faq">
-  <h2 className="text-center">Frequently Asked Questions</h2>
+      <div id="faq" className="container faq">
+        <h2 className="text-center">Frequently Asked Questions</h2>
 
-  <div id="faq-list" className="mt-4">
-    <div className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">How do I sign up for a ride or hike?</h5>
-        <p className="card-text">
-          Pick the event from the Our Plans section and click Register. You'll get an email with everything you need before the day.
-        </p>
-      </div>
-    </div>
+        <div id="faq-list" className="mt-4">
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">How do I sign up for a ride or hike?</h5>
+              <p className="card-text">
+                Pick the event from the Our Plans section and click Register. You'll get an email with everything you need before the day.
+              </p>
+            </div>
+          </div>
 
-    <div className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">Do I need my own bicycle?</h5>
-        <p className="card-text">
-          Not at all. You can rent one from us for Rs. 1,500 and pick it up on the day of the ride.
-        </p>
-      </div>
-    </div>
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Do I need my own bicycle?</h5>
+              <p className="card-text">
+                Not at all. You can rent one from us for Rs. 1,500 and pick it up on the day of the ride.
+              </p>
+            </div>
+          </div>
 
-    <div className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">Are the cycling routes safe for beginners?</h5>
-        <p className="card-text">
-          Yes. Routes are planned in advance and the group rides together, so beginners are never left behind.
-        </p>
-      </div>
-    </div>
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Are the cycling routes safe for beginners?</h5>
+              <p className="card-text">
+                Yes. Routes are planned in advance and the group rides together, so beginners are never left behind.
+              </p>
+            </div>
+          </div>
 
-    <div className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">What happens if it rains on event day?</h5>
-        <p className="card-text">
-          We'll email and post on Instagram if an event is postponed due to weather, usually a day in advance.
-        </p>
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">What happens if it rains on event day?</h5>
+              <p className="card-text">
+                We'll email and post on Instagram if an event is postponed due to weather, usually a day in advance.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <footer id="contact">
         <h5>Hike N Cyc</h5>
@@ -222,4 +232,3 @@ export default function Home () {
     </>
   )
 }
-

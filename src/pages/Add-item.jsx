@@ -20,7 +20,7 @@ function AddItem() {
         <div className="mb-4">
           <label htmlFor="cycleType" className="form-label">Cycle Type</label>
           <select className="form-select" id="cycleType">
-            <option value="">-- Select type --</option>
+            <option value="">Select type</option>
             <option value="mountain">Mountain Bike</option>
             <option value="road">Road Bike</option>
             <option value="hybrid">Hybrid Bike</option>

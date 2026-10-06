@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 function AdminLogin() {
   return (
      <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
-    <div className="container mt-5 col-md-4" >
+    <div className="container pt-5 col-md-4" >
       <div className="text-center mb-4">
         <img
           src={logo}

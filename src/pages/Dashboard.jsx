@@ -6,7 +6,7 @@ function Dashboard() {
 
       {/* Top bar with logo */}
       <div
-        className="d-flex align-items-center justify-content-between px-4 py-3 mb-4"
+        className="d-flex align-items-center  px-4 py-3 mb-4"
         style={{ backgroundColor: "#254631" }}
       >
         <div className="d-flex align-items-center">
