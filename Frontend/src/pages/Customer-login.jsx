@@ -1,6 +1,27 @@
 import logo from "../assets/logo.png";
+import {useForm} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z.object({
+  email: z
+  .string()
+  .trim()
+  .pipe(z.email("Enter a valid email")),
+  password: z
+    .string()
+    .min(1, "Password is required"),
+});
 
 function CustomerLogin() {
+  const {register, handleSubmit, formState: {errors}}  = useForm({
+    resolver: zodResolver(schema)
+  });
+
+function myFormSubmissionFunction() {
+  console.log("Form submitted!");
+}
+
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
       <div className="container pt-5 pb-5 col-md-4">
@@ -14,7 +35,7 @@ function CustomerLogin() {
           <h1 className="fw-bold">Customer Login</h1>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit(myFormSubmissionFunction)}>
           <div className="mb-4">
             <label htmlFor="email" className="form-label">Email</label>
             <input
@@ -22,7 +43,9 @@ function CustomerLogin() {
               className="form-control"
               id="email"
               placeholder="Enter your email"
+              {...register("email")}
             />
+            {errors.email && <span className="text-danger">Email is required</span>}
           </div>
 
           <div className="mb-4">
@@ -32,7 +55,9 @@ function CustomerLogin() {
               className="form-control"
               id="password"
               placeholder="Enter your password"
+              {...register("password")}
             />
+            {errors.password && <span className="text-danger">Password is required</span>}
           </div>
 
           <div className="mb-4">
