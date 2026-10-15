@@ -45,7 +45,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your email"
               {...register("email")}
             />
-            {errors.email && <span className="text-danger">Email is required</span>}
+            {errors.email && <span className="text-danger">{errors.email.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -57,7 +57,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your password"
               {...register("password")}
             />
-            {errors.password && <span className="text-danger">Password is required</span>}
+            {errors.password && <span className="text-danger">{errors.password.message}</span>}
           </div>
 
           <div className="mb-4">

@@ -10,7 +10,8 @@ const schema = z.object({
  .pipe(z.email("Enter a valid email")),
   password: z
     .string()
-    .min(1, "Password is required"),
+    .min(6, "Password must be at least 6 characters")
+    .max(100, "Password must be at most 50 characters"),
 });
 
 function GuideLogin() {
@@ -46,7 +47,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your email"
               {...register("email")}
             />
-            {errors.email && <span className="text-danger">Email is required</span>}
+            {errors.email && <span className="text-danger">{errors.email.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -58,7 +59,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your password"
               {...register("password")}
             />
-            {errors.password && <span className="text-danger">Password is required</span>}
+            {errors.password && <span className="text-danger">{errors.password.message}</span>}
           </div>
 
           <div className="mb-4">

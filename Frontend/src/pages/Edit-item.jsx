@@ -23,16 +23,10 @@ const schema = z.object({
     .string()
     .trim()
     .max(255, "Condition / Notes must be at most 255 characters")
-    .optional(),
+     .min(1, "Condition / Notes is required"),
   cycleimage: z
-    .any()
-    .refine(
-      (files) => !files?.length || files[0].type.startsWith("image/"),
-      "File must be an image")
-    .refine(
-      (files) => !files?.length || files[0].size <= 5 * 1024 * 1024,
-      "Image must be under 5MB"
-    ),
+  .any()
+  .refine((files) => files?.length > 0, "Cycle image is required"),
 });
 
 function EditItem() {
@@ -60,7 +54,7 @@ function myFormSubmissionFunction() {
             <option value="2">Giant Escape 3 - Hybrid Bike</option>
             <option value="3">Cannondale Quick 4 - Road Bike</option>
           </select>
-          {errors.selectcycle && <span className="text-danger">Please select a cycle to edit</span>}
+          {errors.selectcycle && <span className="text-danger">{errors.selectcycle.message}</span>}
         </div>
 
         <hr className="mb-4" />
@@ -70,7 +64,7 @@ function myFormSubmissionFunction() {
           <input type="text" className="form-control" id="cycleName"
           {...register("cyclename")}
           />
-          {errors.cyclename && <span className="text-danger">Cycle name is required</span>}
+          {errors.cyclename && <span className="text-danger">{errors.cyclename.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -82,23 +76,23 @@ function myFormSubmissionFunction() {
             <option value="hybrid">Hybrid Bike</option>
             <option value="kids">Kids Bike</option>
           </select>
-          {errors.cycletype && <span className="text-danger">Please select a cycle type</span>}
+          {errors.cycletype && <span className="text-danger">{errors.cycletype.message}</span>}
         </div>
 
         <div className="mb-4">
           <label htmlFor="quantity" className="form-label">Quantity Available</label>
           <input type="number" className="form-control" id="quantity" min="0"
-          {...register("quantityavailable")}
+          {...register("quantityavailable", {valueAsNumber: true})}
           />
-          {errors.quantityavailable && <span className="text-danger">Quantity is required</span>}
+          {errors.quantityavailable && <span className="text-danger">{errors.quantityavailable.message}</span>}
         </div>
 
         <div className="mb-4">
           <label htmlFor="rentalPrice" className="form-label">Rental Price per Day (Rs.)</label>
           <input type="number" className="form-control" id="rentalPrice" min="0"
-          {...register("rentalprice")}
+          {...register("rentalprice", {valueAsNumber: true})}
           />
-          {errors.rentalprice && <span className="text-danger">Rental price is required</span>}
+          {errors.rentalprice && <span className="text-danger">{errors.rentalprice.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -106,7 +100,7 @@ function myFormSubmissionFunction() {
           <textarea className="form-control" id="condition" rows="3"
           {...register("condition")}
           ></textarea>
-          {errors.condition && <span className="text-danger">Condition / Notes is required</span>}
+          {errors.condition && <span className="text-danger">{errors.condition.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -114,7 +108,7 @@ function myFormSubmissionFunction() {
           <input type="file" className="form-control" id="cycleImage"
           {...register("cycleimage")}
           />
-          {errors.cycleimage && <span className="text-danger">Cycle image is required</span>} 
+          {errors.cycleimage && <span className="text-danger">{errors.cycleimage.message}</span>} 
         </div>
 
         <div className="mb-4">

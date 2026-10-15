@@ -63,7 +63,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your full name"
               {...register("fullname")}
             />
-            {errors.fullname && <span className="text-danger">Full name is required</span>}
+            {errors.fullname && <span className="text-danger">{errors.fullname.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -75,7 +75,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your email"
               {...register("email")}
             />
-            {errors.email && <span className="text-danger">Email is required</span>}
+            {errors.email && <span className="text-danger">{errors.email.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -85,9 +85,9 @@ function myFormSubmissionFunction() {
               className="form-control"
               id="phone"
               placeholder="Enter your phone number"
-              {...register("phonenumber")}
+              {...register("phonenumber", {valueAsNumber:true})}
             />
-            {errors.phonenumber && <span className="text-danger">Phone number is required</span>}
+            {errors.phonenumber && <span className="text-danger">{errors.phonenumber.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -98,7 +98,7 @@ function myFormSubmissionFunction() {
               <option value="cycling">Cycling</option>
               <option value="both">Both</option>
             </select>
-            {errors.guidetype && <span className="text-danger">Please select a guiding speciality</span>}
+            {errors.guidetype && <span className="text-danger">{errors.guidetype.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -110,7 +110,7 @@ function myFormSubmissionFunction() {
               min="0"
               placeholder="e.g. 2"
               {...register("experience", { valueAsNumber: true })} />
-            {errors.experience && <span className="text-danger">Years of experience is required</span>}
+            {errors.experience && <span className="text-danger">{errors.experience.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -122,7 +122,7 @@ function myFormSubmissionFunction() {
               placeholder="Create a password"
               {...register("password")}
             />
-            {errors.password && <span className="text-danger">Password is required</span>}
+            {errors.password && <span className="text-danger">{errors.password.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -134,7 +134,7 @@ function myFormSubmissionFunction() {
               placeholder="Re-enter your password"
               {...register("confirmpassword")}
             />
-            {errors.confirmpassword && <span className="text-danger">Please confirm your password</span>}
+            {errors.confirmpassword && <span className="text-danger">{errors.confirmpassword.message}</span>}
           </div>
 
           <div className="mb-4">

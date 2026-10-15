@@ -11,8 +11,8 @@ const schema = z
     additionalnotes: z
       .string()
       .trim()
-      .max(255, "Notes must be at most 255 characters")
-      .optional(),
+      .min(1, "Additional notes are required")
+      .max(255, "Notes must be at most 255 characters"),
     quantityavailable: z
       .number({ error: "Quantity is required" })
       .int("Quantity must be a whole number")
@@ -21,14 +21,7 @@ const schema = z
       error: "You must confirm the removal",
     }),
   })
-  .refine(
-    (data) =>
-      data.reasonforremoval !== "4" || (data.additionalnotes ?? "").length >= 5,
-    {
-      message: "Please explain the reason when choosing Other",
-      path: ["additionalnotes"],
-    }
-  );
+  ;
 
 function DeleteItem() {
 const {register, handleSubmit, formState: {errors}} = useForm({
@@ -55,19 +48,19 @@ function myFormSubmissionFunction() {
               <option value="2">Giant Escape 3 - Hybrid Bike</option>
               <option value="3">Cannondale Quick 4 - Road Bike</option>
             </select>
-            {errors.selectcycle && <span className="text-danger">Please select a cycle to remove</span>}
+            {errors.selectcycle && <span className="text-danger">{errors.selectcycle.message}</span>}
           </div>
 
            <div className="mb-4">
-            <label htmlFor="selectCycle" className="form-label">Reason for Removal</label>
-            <select className="form-select" id="selectCycle" {...register("reasonforremoval")}>
+            <label htmlFor="reasonForRemoval" className="form-label">Reason for Removal</label>
+            <select className="form-select" id="reasonForRemoval" {...register("reasonforremoval")}>
               <option value="">Choose a reason</option>
               <option value="1">Damaged</option>
               <option value="2">Outdated</option>
               <option value="3">Sold</option>
                <option value="4">Other</option>
             </select>
-            {errors.reasonforremoval && <span className="text-danger">Please select a reason for removal</span>}
+            {errors.reasonforremoval && <span className="text-danger">{errors.reasonforremoval.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -79,22 +72,24 @@ function myFormSubmissionFunction() {
               placeholder="e.g. Frame cracked during last rental"
               {...register("additionalnotes")}
             ></textarea>
-            {errors.additionalnotes && <span className="text-danger">Additional notes are required</span>}
+            {errors.additionalnotes && (
+  <span className="text-danger">{errors.additionalnotes.message}</span>
+)}
           </div>
 
           <div className="mb-4">
             <label htmlFor="quantity" className="form-label">Quantity Available</label>
             <input type="number" className="form-control" id="quantity" min="0"
-            {...register("quantityavailable")}
+            {...register("quantityavailable", { valueAsNumber: true })}
             />
-            {errors.quantityavailable && <span className="text-danger">Quantity is required</span>}
+            {errors.quantityavailable && <span className="text-danger">{errors.quantityavailable.message}</span>}
           </div>
 
            <div className="mb-4 form-check">
             <input type="checkbox" className="form-check-input" id="confirmRemoval"
             {...register("confirmremoval")}
             />
-            {errors.confirmremoval && <span className="text-danger">You must confirm the removal</span>}
+            {errors.confirmremoval && <span className="text-danger">{errors.confirmremoval.message}</span>}
 
             <label htmlFor="confirmRemoval" className="form-check-label">
               I confirm this cycle should be permanently removed from inventory
@@ -102,7 +97,7 @@ function myFormSubmissionFunction() {
 </div>
           <div className="mb-4">
             <button
-              type="button"
+              type="submit"
               className="form-control text-white border-0"
               style={{ backgroundColor: "#254631" }}
             >

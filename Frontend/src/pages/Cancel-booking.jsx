@@ -43,7 +43,7 @@ function myFormSubmissionFunction() {
               <option value="1">Giant Escape 3 - 2026-10-04</option>
               <option value="2">Trek Marlin 5 - 2026-10-11</option>
             </select>
-            {errors.selectbooking && <span className="text-danger">Booking selection is required</span>}
+            {errors.selectbooking && <span className="text-danger">{errors.selectbooking.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -55,7 +55,7 @@ function myFormSubmissionFunction() {
               <option value="health">Health Reasons</option>
               <option value="other">Other</option>
             </select>
-            {errors.reason && <span className="text-danger">Reason for cancellation is required</span>}
+            {errors.reason && <span className="text-danger">{errors.reason.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -67,14 +67,14 @@ function myFormSubmissionFunction() {
               placeholder="Optional comments"
               {...register("additionalnotes")}
             ></textarea>
-            {errors.additionalnotes && <span className="text-danger">Additional notes are required</span>}
+            {errors.additionalnotes && <span className="text-danger">{errors.additionalnotes.message}</span>}
           </div>
 
           <div className="mb-4 form-check">
             <input type="checkbox" className="form-check-input" id="confirmCancel"
             {...register("confirmcancel")}
             />
-            {errors.confirmcancel && <span className="text-danger">You must confirm cancellation</span>}
+            {errors.confirmcancel && <span className="text-danger">{errors.confirmcancel.message}</span>}
             <label htmlFor="confirmCancel" className="form-check-label">
               I confirm I want to cancel this booking
             </label>
@@ -82,7 +82,7 @@ function myFormSubmissionFunction() {
 
           <div className="mb-4">
             <button
-              type="button"
+              type="submit"
               className="form-control text-white border-0"
               style={{ backgroundColor: "#254631" }}
             >

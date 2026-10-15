@@ -12,11 +12,12 @@ const schema = z.object({
  .string()
  .trim()
  .pipe(z.email("Enter a valid email")),
-  phonenumber: z
-    .string()
-    .trim()
-    .min(10, "Phone number must be at least 10 characters")
-    .max(15, "Phone number must be at most 15 characters"),
+ phonenumber: z
+  .string()
+  .trim()
+  .min(10, "Phone number must be at least 10 characters")
+  .max(15, "Phone number must be at most 15 characters")
+  .regex(/^\+?[0-9]+$/, "Phone number can only contain digits and an optional leading +"),
   password: z
     .string()
     .min(6, "Password must be at least 6 characters")
@@ -56,7 +57,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your full name"
               {...register("fullname")}
             />
-            {errors.fullname && <span className="text-danger">Full name is required</span>}
+            {errors.fullname && <span className="text-danger">{errors.fullname.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -68,7 +69,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your email"
               {...register("email")}
             />
-            {errors.email && <span className="text-danger">Email is required</span>}
+            {errors.email && <span className="text-danger">{errors.email.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -80,7 +81,7 @@ function myFormSubmissionFunction() {
               placeholder="Enter your phone number"
               {...register("phonenumber")}
             />
-            {errors.phonenumber && <span className="text-danger">Phone number is required</span>}
+            {errors.phonenumber && <span className="text-danger">{errors.phonenumber.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -90,9 +91,9 @@ function myFormSubmissionFunction() {
               className="form-control"
               id="password"
               placeholder="Create a password"
-              {...register("password")}
+              {...register("password" )}
             />
-            {errors.password && <span className="text-danger">Password is required</span>}
+            {errors.password && <span className="text-danger">{errors.password.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -104,7 +105,7 @@ function myFormSubmissionFunction() {
               placeholder="Re-enter your password"
               {...register("confirmpassword")}
             />
-            {errors.confirmpassword && <span className="text-danger">Please confirm your password</span>}
+            {errors.confirmpassword && <span className="text-danger">{errors.confirmpassword.message}</span>}
           </div>
 
           <div className="mb-4">

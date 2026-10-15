@@ -47,13 +47,13 @@ function myFormSubmissionFunction() {
           <div className="mb-4">
             <label htmlFor="fullName" className="form-label">Full Name</label>
             <input type="text" className="form-control" id="fullName" {...register("fullname")} />
-            {errors.fullname && <span className="text-danger">Full name is required</span>}
+            {errors.fullname && <span className="text-danger">{errors.fullname.message}</span>}
           </div>
 
           <div className="mb-4">
             <label htmlFor="email" className="form-label">Email</label>
             <input type="email" className="form-control" id="email" {...register("email")} />
-            {errors.email && <span className="text-danger">Email is required</span>}
+            {errors.email && <span className="text-danger">{errors.email.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -65,14 +65,14 @@ function myFormSubmissionFunction() {
               <option value="rental">Cycle Rental</option>
               <option value="other">Other</option>
             </select>
-            {errors.relatedevent && <span className="text-danger">Please select a related event or booking</span>}
+            {errors.relatedevent && <span className="text-danger">{errors.relatedevent.message}</span>}
           </div>
 
           <div className="mb-4">
             <label htmlFor="subject" className="form-label">Subject</label>
             <input type="text" className="form-control" id="subject" placeholder="Brief summary of the issue"
              {...register("subject")} />
-            {errors.subject && <span className="text-danger">Subject is required</span>}
+            {errors.subject && <span className="text-danger">{errors.subject.message}</span>}
           </div>
 
           <div className="mb-4">
@@ -84,7 +84,7 @@ function myFormSubmissionFunction() {
               placeholder="Describe what happened"
               {...register("description")}
             ></textarea>
-            {errors.description && <span className="text-danger">Description is required</span>}  
+            {errors.description && <span className="text-danger">{errors.description.message}</span>}  
           </div>
 
           <div className="mb-4">

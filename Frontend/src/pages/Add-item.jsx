@@ -62,7 +62,7 @@ console.log("Form submitted!");
             placeholder="e.g. Trek Marlin 5"
             {...register("cyclename")}
           />
-          {errors.cyclename && <span className="text-danger">CycleName is required</span>}
+          {errors.cyclename && <span className="text-danger">{errors.cyclename.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -74,7 +74,7 @@ console.log("Form submitted!");
             <option value="hybrid">Hybrid Bike</option>
             <option value="kids">Kids Bike</option>
           </select>
-          {errors.cycletype && <span className="text-danger">Cycle type is required</span>}
+          {errors.cycletype && <span className="text-danger">{errors.cycletype.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -85,9 +85,9 @@ console.log("Form submitted!");
             id="quantity"
             min="0"
             placeholder="e.g. 5"
-            {...register("cyclequantity")}
+            {...register("cyclequantity", {valueAsNumber: true})}
           />
-          {errors.cyclequantity && <span className="text-danger">Quantity is required</span>}
+          {errors.cyclequantity && <span className="text-danger">{errors.cyclequantity.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -98,9 +98,9 @@ console.log("Form submitted!");
             id="rentalPrice"
             min="0"
             placeholder="e.g. 1500"
-            {...register("rentalprice")}
+            {...register("rentalprice", {valueAsNumber: true})}
           />
-          {errors.rentalprice && <span className="text-danger">Rental price is required</span>}
+          {errors.rentalprice && <span className="text-danger">{errors.rentalprice.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -112,7 +112,7 @@ console.log("Form submitted!");
             placeholder="e.g. New, well maintained, minor scratches, etc."
             {...register("condition")}
           ></textarea>
-          {errors.condition && <span className="text-danger">Condition is required</span>}
+          {errors.condition && <span className="text-danger">{errors.condition.message}</span>}
         </div>
 
         <div className="mb-4">
@@ -120,7 +120,7 @@ console.log("Form submitted!");
           <input type="file" className="form-control" id="cycleImage" 
           {...register("cycleimage")}
           />
-          {errors.cycleimage && <span className="text-danger">Cycle image is required</span>}
+          {errors.cycleimage && <span className="text-danger">{errors.cycleimage.message}</span>}
         </div>
 
         <div className="mb-4">
