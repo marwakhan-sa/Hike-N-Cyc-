@@ -29,7 +29,7 @@ const schema = z.object({
   .refine((files) => files?.length > 0, "Cycle image is required"),
 });
 
-function EditItem() {
+function EditCycle() {
 const {register, handleSubmit, formState: { errors }} = useForm({
   resolver: zodResolver(schema)
 });
@@ -126,4 +126,4 @@ function myFormSubmissionFunction() {
   );
 }
 
-export default EditItem;
+export default EditCycle;

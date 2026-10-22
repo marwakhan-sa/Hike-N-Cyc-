@@ -1,14 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import { cycleController } from './Controllers/cycleController.js';
 import cycleRoutes from './Routes/cycleRoutes.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/add-cycle", cycleRoutes);
-// app.post("/add-item", itemController);
+
 
 app.listen(5000,() => {
     console.log("Server is running on port 5000");

@@ -11,8 +11,8 @@ import CustomerRegister from "./pages/Customer-register";
 // Admin dashboard + admin components
 import AdminDashboard from "./pages/Admin-dashboard";
 import AddCycle from "./pages/Add-cycle";
-import EditItem from "./pages/Edit-item";
-import DeleteItem from "./pages/Delete-item";
+import EditCycle from "./pages/Edit-cycle";
+import DeleteCycle from "./pages/Delete-cycle";
 
 // Guide components
 import AssignedEvents from "./pages/Assigned-events";
@@ -40,8 +40,8 @@ export const router = createBrowserRouter([
 
   // Admin components
   { path: "/add-cycle", element: <AddCycle /> },
-  { path: "/edit-item", element: <EditItem /> },
-  { path: "/delete-item", element: <DeleteItem /> },
+  { path: "/edit-cycle", element: <EditCycle /> },
+  { path: "/delete-cycle", element: <DeleteCycle /> },
 
   // Guide components
   { path: "/assigned-events", element: <AssignedEvents /> },

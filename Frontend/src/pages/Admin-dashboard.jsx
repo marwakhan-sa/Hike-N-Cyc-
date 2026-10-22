@@ -36,10 +36,10 @@ function AdminDashboard() {
             <Link to="/add-cycle" className="nav-link text-white">Add Cycle</Link>
           </li>
           <li className="nav-item">
-            <Link to="/edit-item" className="nav-link text-white">Edit Item</Link>
+            <Link to="/edit-cycle" className="nav-link text-white">Edit Cycle</Link>
           </li>
           <li className="nav-item">
-            <Link to="/delete-item" className="nav-link text-white">Delete Item</Link>
+            <Link to="/delete-cycle" className="nav-link text-white">Delete Cycle</Link>
           </li>
 
           {/* Guide components */}

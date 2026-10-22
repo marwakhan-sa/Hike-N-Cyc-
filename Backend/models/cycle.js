@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const cycleSchema = mongoose.Schema({
     cname: {type: String, required: true},
-    cyclequantity: {type: Number, required: true},
-    rentalprice: {type: Number, required: true},
-    condition: {type: String, required: true},
-    cycleimage: {type: String, required: true}
+    ctype: {type: String, required: true},
+    cquantity: {type: Number, required: true},
+    rprice: {type: Number, required: true},
+    ccondition: {type: String, required: true},
 });
 
 const Cycle = mongoose.model("Cycle", cycleSchema);

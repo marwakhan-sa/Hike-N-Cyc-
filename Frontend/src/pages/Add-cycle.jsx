@@ -24,17 +24,17 @@ const schema = z.object({
     .trim()
     .max(255, "Condition must be at most 255 characters")
     .optional(),
-  cycleimage: z
-    .any()
-    .refine((files) => files?.length > 0, "Cycle image is required")
-    .refine(
-      (files) => files?.[0]?.type.startsWith("image/"),
-      "File must be an image"
-    )
-    .refine(
-      (files) => files?.[0]?.size <= 5 * 1024 * 1024,
-      "Image must be under 5MB"
-    ),
+  // cycleimage: z
+  //   .any()
+  //   .refine((files) => files?.length > 0, "Cycle image is required")
+  //   .refine(
+  //     (files) => files?.[0]?.type.startsWith("image/"),
+  //     "File must be an image"
+  //   )
+  //   .refine(
+  //     (files) => files?.[0]?.size <= 5 * 1024 * 1024,
+  //     "Image must be under 5MB"
+  //   ),
 });
 
 function AddCycle() {
@@ -118,13 +118,13 @@ await addCycleAxiosFunction(data);
           {errors.condition && <span className="text-danger">{errors.condition.message}</span>}
         </div>
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="cycleImage" className="form-label">Cycle Image</label>
           <input type="file" className="form-control" id="cycleImage" 
           {...register("cycleimage")}
           />
           {errors.cycleimage && <span className="text-danger">{errors.cycleimage.message}</span>}
-        </div>
+        </div> */}
 
         <div className="mb-4">
           <button

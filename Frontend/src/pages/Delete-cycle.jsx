@@ -23,7 +23,7 @@ const schema = z
   })
   ;
 
-function DeleteItem() {
+function DeleteCycle() {
 const {register, handleSubmit, formState: {errors}} = useForm({
   resolver: zodResolver(schema)
 });
@@ -110,4 +110,4 @@ function myFormSubmissionFunction() {
   );
 }
 
-export default DeleteItem;
+export default DeleteCycle;
