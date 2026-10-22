@@ -10,7 +10,7 @@ import CustomerRegister from "./pages/Customer-register";
 
 // Admin dashboard + admin components
 import AdminDashboard from "./pages/Admin-dashboard";
-import AddItem from "./pages/Add-item";
+import AddCycle from "./pages/Add-cycle";
 import EditItem from "./pages/Edit-item";
 import DeleteItem from "./pages/Delete-item";
 
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
   { path: "/admin-dashboard", element: <AdminDashboard /> },
 
   // Admin components
-  { path: "/add-item", element: <AddItem /> },
+  { path: "/add-cycle", element: <AddCycle /> },
   { path: "/edit-item", element: <EditItem /> },
   { path: "/delete-item", element: <DeleteItem /> },
 

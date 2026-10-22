@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { addCycleAxiosFunction } from "../service/api";
 
 const schema = z.object({
   cyclename: z
@@ -36,13 +37,14 @@ const schema = z.object({
     ),
 });
 
-function AddItem() {
+function AddCycle() {
 const {register, handleSubmit, formState: { errors }} = useForm({
   resolver: zodResolver(schema)
 });
 
-function myFormSubmissionFunction() {
-console.log("Form submitted!");
+async function myFormSubmissionFunction(data) {
+console.log("Form submitted!", data);
+await addCycleAxiosFunction(data);
 }
 
   return (
@@ -53,6 +55,7 @@ console.log("Form submitted!");
       </div>
 
       <form onSubmit={handleSubmit(myFormSubmissionFunction)}>
+
         <div className="mb-4">
           <label htmlFor="cycleName" className="form-label">Cycle Name / Model</label>
           <input
@@ -138,4 +141,4 @@ console.log("Form submitted!");
   );
 }
 
-export default AddItem;
+export default AddCycle;

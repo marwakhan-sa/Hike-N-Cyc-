@@ -33,7 +33,7 @@ function AdminDashboard() {
           {/* Admin components */}
           <p className="text-white-50 small mt-3 mb-1">ADMIN</p>
           <li className="nav-item">
-            <Link to="/add-item" className="nav-link text-white">Add Item</Link>
+            <Link to="/add-cycle" className="nav-link text-white">Add Cycle</Link>
           </li>
           <li className="nav-item">
             <Link to="/edit-item" className="nav-link text-white">Edit Item</Link>
