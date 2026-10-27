@@ -23,7 +23,7 @@ const schema = z.object({
     .string()
     .trim()
     .max(255, "Condition must be at most 255 characters")
-    .optional(),
+   ,
 });
 
 function AddCycle() {

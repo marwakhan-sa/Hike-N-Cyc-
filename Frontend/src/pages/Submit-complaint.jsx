@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import {submitComplaintAxiosFunction} from "../service/api.js";
 
 const schema = z.object({
   fullname: z
@@ -32,8 +33,9 @@ const { register, handleSubmit, formState: { errors } } = useForm({
   resolver: zodResolver(schema)
 });
 
-function myFormSubmissionFunction() {
-  console.log("Form submitted!");
+async function myFormSubmissionFunction(data) {
+  console.log("Form submitted!", data);
+  return await submitComplaintAxiosFunction(data);
 }
 
   return (

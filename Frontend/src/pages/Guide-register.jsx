@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { registerGuideAxiosFunction } from "../service/api.js";
 
 const schema = z
   .object({
@@ -15,7 +16,6 @@ const schema = z
    .pipe(z.email("Enter a valid email")),
     phonenumber: z
       .string()
-      .trim()
       .regex(/^\+?[0-9]{10,15}$/, "Enter a valid phone number"),
     guidetype: z.enum(["hiking", "cycling", "both"], {
       error: "Please select a guiding speciality",
@@ -42,8 +42,9 @@ const {register, handleSubmit, formState: {errors}} = useForm({
   resolver: zodResolver(schema)
 } );
 
-function myFormSubmissionFunction() {
-  console.log("Form submitted!");
+async function myFormSubmissionFunction(data) {
+  console.log("Form submitted!", data);
+  return await registerGuideAxiosFunction(data);
 }
 
   return (

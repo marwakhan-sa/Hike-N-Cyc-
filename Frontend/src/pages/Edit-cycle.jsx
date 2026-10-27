@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import {editCycleAxiosFunction} from "../service/api.js";
 
 const schema = z.object({
   selectcycle: z.string().min(1, "Please select a cycle to edit"),
@@ -12,7 +13,7 @@ const schema = z.object({
   cycletype: z.enum(["mountain", "road", "hybrid", "kids"], {
     error: "Please select a cycle type",
   }),
-  quantityavailable: z
+  cyclequantity: z
     .number({ error: "Quantity is required" })
     .int("Quantity must be a whole number")
     .min(0, "Quantity must be at least 0"),
@@ -31,8 +32,9 @@ const {register, handleSubmit, formState: { errors }} = useForm({
   resolver: zodResolver(schema)
 });
 
-function myFormSubmissionFunction() { 
-  console.log("Form submitted!");
+async function myFormSubmissionFunction(data) { 
+  console.log("Form submitted!", data);
+  await editCycleAxiosFunction(data);
 }
 
   return (
@@ -79,9 +81,9 @@ function myFormSubmissionFunction() {
         <div className="mb-4">
           <label htmlFor="quantity" className="form-label">Quantity Available</label>
           <input type="number" className="form-control" id="quantity" min="0"
-          {...register("quantityavailable", {valueAsNumber: true})}
+          {...register("cyclequantity", {valueAsNumber: true})}
           />
-          {errors.quantityavailable && <span className="text-danger">{errors.quantityavailable.message}</span>}
+          {errors.cyclequantity && <span className="text-danger">{errors.cyclequantity.message}</span>}
         </div>
 
         <div className="mb-4">
