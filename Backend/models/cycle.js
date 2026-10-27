@@ -5,7 +5,7 @@ const cycleSchema = mongoose.Schema({
     ctype: {type: String, required: true},
     cquantity: {type: Number, required: true},
     rprice: {type: Number, required: true},
-    ccondition: {type: String, required: true},
+    ccondition: {type: String},
 });
 
 const Cycle = mongoose.model("Cycle", cycleSchema);

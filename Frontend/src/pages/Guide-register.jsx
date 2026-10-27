@@ -14,9 +14,6 @@ const schema = z
    .string()
    .trim()
    .pipe(z.email("Enter a valid email")),
-    phonenumber: z
-      .string()
-      .regex(/^\+?[0-9]{10,15}$/, "Enter a valid phone number"),
     guidetype: z.enum(["hiking", "cycling", "both"], {
       error: "Please select a guiding speciality",
     }),
@@ -77,18 +74,6 @@ async function myFormSubmissionFunction(data) {
               {...register("email")}
             />
             {errors.email && <span className="text-danger">{errors.email.message}</span>}
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="phone" className="form-label">Phone Number</label>
-            <input
-              type="tel"
-              className="form-control"
-              id="phone"
-              placeholder="Enter your phone number"
-              {...register("phonenumber", {valueAsNumber:true})}
-            />
-            {errors.phonenumber && <span className="text-danger">{errors.phonenumber.message}</span>}
           </div>
 
           <div className="mb-4">

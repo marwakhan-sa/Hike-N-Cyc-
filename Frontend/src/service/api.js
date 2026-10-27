@@ -12,10 +12,10 @@ export async function editCycleAxiosFunction(data) {
   return await axios.put( `${API_URL}/add-cycle/${selectcycle}`,cycleData);
 }
 
-// export async function getCyclesAxiosFunction() {
-// console.log("Get cycles function called..");
-// return await axios.get(`${API_URL}/add-cycle`);
-// }
+export async function getCyclesAxiosFunction() {
+console.log("Get cycles function called..");
+return await axios.get(`${API_URL}/add-cycle`);
+}
 
 // export async function deleteCycleAxiosFunction(data) {
 // console.log("Delete-cycle function called..", data);

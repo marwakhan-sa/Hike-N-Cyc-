@@ -1,16 +1,15 @@
 import Guide from '../models/guide.js';
 
 export const registerGuide = (req, response) => {
-    const { fullname, email, phonenumber, guidetype, experience, password } = req.body;
+    const { fullname, email, guidetype, experience, password } = req.body;
 
     console.log("Guide registration received:", {
-        fullname, email, phonenumber, guidetype, experience
+        fullname, email, guidetype, experience
     });
 
     const newGuide = new Guide({
         gname: fullname,
         gemail: email,
-        gphone: phonenumber,
         gtype: guidetype,
         gexperience: experience,
         gpassword: password,

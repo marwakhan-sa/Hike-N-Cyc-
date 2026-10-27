@@ -11,8 +11,8 @@ const schema = z.object({
     .min(2, "Full name must be at least 2 characters")
     .max(100, "Full name must be at most 100 characters"),
   phonenumber: z
-    .string()
-    .trim()
+    // .string()
+    // .trim()
     .regex(/^\+?[0-9]{10,15}$/, "Enter a valid phone number"),
   rentaldate: z
   .string()

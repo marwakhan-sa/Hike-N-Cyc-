@@ -1,7 +1,9 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useEffect, useState } from "react";
 import {editCycleAxiosFunction} from "../service/api.js";
+import { getCyclesAxiosFunction } from "../service/api.js";
 
 const schema = z.object({
   selectcycle: z.string().min(1, "Please select a cycle to edit"),
@@ -36,6 +38,13 @@ async function myFormSubmissionFunction(data) {
   console.log("Form submitted!", data);
   await editCycleAxiosFunction(data);
 }
+const [cycles, setCycles] = useState([]);
+useEffect(() => {
+  getCyclesAxiosFunction()
+    .then((response) => setCycles(response.data))
+    .catch((error) => console.error("Could not load cycles:", error));
+}, []);
+
 
   return (
      <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
@@ -47,12 +56,15 @@ async function myFormSubmissionFunction(data) {
       <form onSubmit={handleSubmit(myFormSubmissionFunction)} >
         <div className="mb-4">
           <label htmlFor="selectCycle" className="form-label">Select Cycle</label>
-          <select className="form-select" id="selectCycle" {...register("selectcycle")}>
-            <option value="">-- Choose a cycle to edit --</option>
-            <option value="1">Trek Marlin 5 - Mountain Bike</option>
-            <option value="2">Giant Escape 3 - Hybrid Bike</option>
-            <option value="3">Cannondale Quick 4 - Road Bike</option>
-          </select>
+        <select className="form-select" id="selectCycle" {...register("selectcycle")}>
+  <option value="">Choose a cycle to edit</option>
+
+  {cycles.map((cycle) => (
+    <option key={cycle._id} value={cycle._id}>
+     {cycle._id}
+    </option>
+  ))}
+</select>
           {errors.selectcycle && <span className="text-danger">{errors.selectcycle.message}</span>}
         </div>
 

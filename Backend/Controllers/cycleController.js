@@ -59,3 +59,14 @@ export const editCycleController = (req, response) => {
         response.status(500).json({ message: "Error updating cycle" });
     });
 }
+
+//controller that return cycles
+export const getCycleController = async (req, response) => {
+  try {
+    const cycles = await Cycle.find().select("_id");
+    response.status(200).json(cycles);
+  } catch (error) {
+    console.error("Error fetching cycles:", error);
+    response.status(500).json({ message: "Error fetching cycles" });
+  }
+};
