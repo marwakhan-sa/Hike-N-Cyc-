@@ -8,6 +8,7 @@ import rentalRoutes from "./Routes/rentalRoutes.js";
 import attendanceRoutes from "./Routes/attendanceRoutes.js";
 import cancelBookingRoutes from "./Routes/cancelBookingRoutes.js";
 import complaintRoutes from "./Routes/complaintRoutes.js";
+import adminRoutes from "./Routes/adminRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ app.use("/rent-cycle", rentalRoutes);
 app.use("/mark-attendance", attendanceRoutes);
 app.use("/cancel-booking", cancelBookingRoutes);
 app.use("/submit-complaint", complaintRoutes);
+app.use("/admin", adminRoutes);
 
 app.listen(5000,() => {
     console.log("Server is running on port 5000");

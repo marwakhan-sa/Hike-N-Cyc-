@@ -2,6 +2,7 @@ import logo from "../assets/logo.png";
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { loginAdminAxiosFunction } from "../service/api.js";
 
 const loginSchema = z.object({
   email: z
@@ -19,10 +20,14 @@ function AdminLogin() {
     resolver: zodResolver(loginSchema)
   });
 
-  function myFormSubmissionFunction() {
-    console.log("Form submitted!");
+  async function myFormSubmissionFunction(data) {
+  try {
+    const response = await loginAdminAxiosFunction(data);
+    console.log(response.data); // "Login successful"
+  } catch (error) {
+    console.log(error.response?.data || "Login failed");
   }
-
+}
   return (
      <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
     <div className="container pt-5 col-md-4" >

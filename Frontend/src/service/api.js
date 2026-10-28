@@ -41,10 +41,9 @@ console.log("Guide login function called..", data);
 return await axios.post(`${API_URL}/guide/login`, data);
 }
 
-// export async function loginAdminAxiosFunction(data) {
-// console.log("Admin login function called..", data);
-// return await axios.post(`${API_URL}/admin/login`, data);
-// }
+export async function loginAdminAxiosFunction(data) {
+  return await axios.post(`${API_URL}/admin/login`, data);
+}
 
 export async function rentCycleAxiosFunction(data) {
 console.log("Rent-cycle function called..", data);

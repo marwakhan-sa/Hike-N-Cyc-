@@ -23,7 +23,6 @@ export const registerGuide = (req, response) => {
 }
 export const loginGuide = (req, response) => {
     const { email, password } = req.body;
-
     console.log("Guide login received:", { email });
     Guide.findOne({ gemail: email })
     .then((user) => {
