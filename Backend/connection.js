@@ -12,7 +12,7 @@ import complaintRoutes from "./Routes/complaintRoutes.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/add-cycle", cycleRoutes);
+app.use("/cycles", cycleRoutes);
 app.use("/customer", customerRoutes);
 app.use("/guide", guideRoutes);
 app.use("/rent-cycle", rentalRoutes);

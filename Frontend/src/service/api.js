@@ -4,29 +4,22 @@ const API_URL = "http://localhost:5000";
 
 export async function addCycleAxiosFunction(data) {
 console.log("Add-cycle function called..", data);
-return await axios.post("http://localhost:5000/add-cycle", data);
+return await axios.post("http://localhost:5000/cycles", data);
 }
 
 export async function editCycleAxiosFunction(data) {
   const { selectcycle, ...cycleData } = data;
-  return await axios.put( `${API_URL}/add-cycle/${selectcycle}`,cycleData);
+  return await axios.put( `${API_URL}/cycles/${selectcycle}`,cycleData);
 }
 
 export async function getCyclesAxiosFunction() {
 console.log("Get cycles function called..");
-return await axios.get(`${API_URL}/add-cycle`);
+return await axios.get(`${API_URL}/cycles`);
 }
 
-// export async function deleteCycleAxiosFunction(data) {
-// console.log("Delete-cycle function called..", data);
-// return await axios.delete(`${API_URL}/add-cycle/${data.selectcycle}`, {
-//   data: {
-//     reasonforremoval: data.reasonforremoval,
-//     additionalnotes: data.additionalnotes,
-//     quantityavailable: data.quantityavailable,
-//   },
-// });
-// }
+export async function deleteCycleAxiosFunction(data) {
+  return await axios.delete(`${API_URL}/cycles/${data.selectcycle}`);
+}
 
 export async function registerCustomerAxiosFunction(data) {
 console.log("Customer register function called..", data);

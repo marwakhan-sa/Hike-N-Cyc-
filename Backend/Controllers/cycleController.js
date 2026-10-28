@@ -70,3 +70,23 @@ export const getCycleController = async (req, response) => {
     response.status(500).json({ message: "Error fetching cycles" });
   }
 };
+
+//delete controller
+export const deleteCycleController = (req, response) => {
+    const { id } = req.params;
+
+    console.log("Delete cycle request received. MongoDB ID:", id);
+
+    Cycle.findByIdAndDelete(id)
+        .then((deleted) => {
+            if (!deleted) {
+                return response.status(404).json({ message: "Cycle not found" });
+            }
+            console.log("Cycle deleted successfully. MongoDB ID:", deleted._id);
+            response.status(200).json({ message: "Cycle deleted successfully" });
+        })
+        .catch((error) => {
+            console.error("Error deleting cycle:", error);
+            response.status(500).json({ message: "Error deleting cycle" });
+        });
+};

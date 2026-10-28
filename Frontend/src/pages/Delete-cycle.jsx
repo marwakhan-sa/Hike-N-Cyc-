@@ -1,6 +1,9 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+// import { useEffect, useState } from "react";
+// import { getCyclesAxiosFunction } from "../service/api";
+import { deleteCycleAxiosFunction } from "../service/api";
 
 const schema = z
   .object({
@@ -28,9 +31,18 @@ const {register, handleSubmit, formState: {errors}} = useForm({
   resolver: zodResolver(schema)
 });
 
-function myFormSubmissionFunction() {
-  console.log("Form submitted!");
+async function myFormSubmissionFunction(data) {
+  console.log("Form submitted!", data);
+  return await deleteCycleAxiosFunction(data);
 }
+
+// const [cycles, setCycles] = useState([]);
+
+// useEffect(() => {
+//   getCyclesAxiosFunction()
+//     .then((response) => setCycles(response.data))
+//     .catch((error) => console.error("Could not load cycles:", error));
+// }, []);
 
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
