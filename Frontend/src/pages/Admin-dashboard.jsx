@@ -85,7 +85,7 @@ function AdminDashboard() {
             <div className="col-md-4">
               <div className="card text-center border-0 shadow-sm">
                 <div className="card-body">
-                  <h2 className="fw-bold" style={{ color: "#254631" }}>3</h2>
+                  <h2 className="fw-bold" style={{ color: "#254631" }}>10</h2>
                   <p className="card-text mb-0">Cycles in Inventory</p>
                 </div>
               </div>
@@ -94,7 +94,7 @@ function AdminDashboard() {
             <div className="col-md-4">
               <div className="card text-center border-0 shadow-sm">
                 <div className="card-body">
-                  <h2 className="fw-bold" style={{ color: "#254631" }}>2</h2>
+                  <h2 className="fw-bold" style={{ color: "#254631" }}>6</h2>
                   <p className="card-text mb-0">Active Bookings</p>
                 </div>
               </div>

@@ -3,6 +3,13 @@ import Complaint from '../models/complaint.js';
 export const complaintController = (req, response) => {
     const { fullname, email, relatedevent, subject, description } = req.body;
 
+    console.log("Complaint submitted:", {
+    fullname,
+    email,
+    relatedevent,
+    subject,
+    description,
+  });
     const newComplaint = new Complaint({
         compname: fullname,
         compemail: email,
@@ -13,6 +20,7 @@ export const complaintController = (req, response) => {
 
     newComplaint.save()
     .then(() => {
+        console.log("Complaint submitted successfully.");
         response.status(201).json({ message: "Complaint submitted successfully" });
     })
     .catch((error) => {

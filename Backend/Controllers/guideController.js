@@ -2,11 +2,9 @@ import Guide from '../models/guide.js';
 
 export const registerGuide = (req, response) => {
     const { fullname, email, guidetype, experience, password } = req.body;
-
     console.log("Guide registration received:", {
         fullname, email, guidetype, experience
     });
-
     const newGuide = new Guide({
         gname: fullname,
         gemail: email,
@@ -14,7 +12,6 @@ export const registerGuide = (req, response) => {
         gexperience: experience,
         gpassword: password,
     });
-
     newGuide.save()
     .then(() => {
         response.status(201).json({ message: "Guide registered successfully" });
@@ -24,12 +21,10 @@ export const registerGuide = (req, response) => {
         response.status(500).json({ message: "Error registering guide" });
     });
 }
-
 export const loginGuide = (req, response) => {
     const { email, password } = req.body;
 
-    console.log("Guide login received:");
-
+    console.log("Guide login received:", { email });
     Guide.findOne({ gemail: email })
     .then((user) => {
         if (!user || user.gpassword !== password) {

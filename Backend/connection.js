@@ -18,7 +18,7 @@ app.use("/guide", guideRoutes);
 app.use("/rent-cycle", rentalRoutes);
 app.use("/mark-attendance", attendanceRoutes);
 app.use("/cancel-booking", cancelBookingRoutes);
-app.use("/complaint", complaintRoutes);
+app.use("/submit-complaint", complaintRoutes);
 
 app.listen(5000,() => {
     console.log("Server is running on port 5000");

@@ -43,7 +43,10 @@ async function myFormSubmissionFunction(data) {
             <select className="form-select" id="selectBooking" {...register("selectbooking")}>
               <option value="">Choose a booking to cancel</option>
               <option value="1">Giant Escape 3 - 2026-10-04</option>
-              <option value="2">Trek Marlin 5 - 2026-10-11</option>
+              <option value="2">Fat bicycle- 2026-10-11</option>
+              <option value="3">E-Bicycle- 2026-10-9</option>
+              <option value="4">BMX bicycle- 2026-10-3</option>
+              <option value="5">Trek Marlin 5 - 2026-10-1</option>
             </select>
             {errors.selectbooking && <span className="text-danger">{errors.selectbooking.message}</span>}
           </div>

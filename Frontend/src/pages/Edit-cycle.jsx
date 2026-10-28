@@ -1,12 +1,10 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useEffect, useState } from "react";
 import {editCycleAxiosFunction} from "../service/api.js";
-import { getCyclesAxiosFunction } from "../service/api.js";
 
 const schema = z.object({
-  selectcycle: z.string().min(1, "Please select a cycle to edit"),
+  cycleid: z.string().trim().min(1, "Cycle ID is required"),
   cyclename: z
     .string()
     .trim()
@@ -36,15 +34,9 @@ const {register, handleSubmit, formState: { errors }} = useForm({
 
 async function myFormSubmissionFunction(data) { 
   console.log("Form submitted!", data);
-  await editCycleAxiosFunction(data);
+ const response= await editCycleAxiosFunction(data);
+   console.log(response.data.message);
 }
-const [cycles, setCycles] = useState([]);
-useEffect(() => {
-  getCyclesAxiosFunction()
-    .then((response) => setCycles(response.data))
-    .catch((error) => console.error("Could not load cycles:", error));
-}, []);
-
 
   return (
      <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
@@ -53,22 +45,18 @@ useEffect(() => {
         <h1 className="fw-bold">Update cycle details</h1>
       </div>
 
-      <form onSubmit={handleSubmit(myFormSubmissionFunction)} >
+      <form onSubmit={handleSubmit(myFormSubmissionFunction)}>
         <div className="mb-4">
-          <label htmlFor="selectCycle" className="form-label">Select Cycle</label>
-        <select className="form-select" id="selectCycle" {...register("selectcycle")}>
-  <option value="">Choose a cycle to edit</option>
-
-  {cycles.map((cycle) => (
-    <option key={cycle._id} value={cycle._id}>
-     {cycle._id}
-    </option>
-  ))}
-</select>
-          {errors.selectcycle && <span className="text-danger">{errors.selectcycle.message}</span>}
+          <label htmlFor="cycleId" className="form-label">Cycle ID</label>
+          <input
+            type="text"
+            className="form-control"
+            id="cycleId"
+            placeholder="e.g. C001"
+            {...register("cycleid")}
+          />
+          {errors.cycleid && <span className="text-danger">{errors.cycleid.message}</span>}
         </div>
-
-        <hr className="mb-4" />
 
         <div className="mb-4">
           <label htmlFor="cycleName" className="form-label">Cycle Name / Model</label>

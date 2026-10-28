@@ -1,13 +1,13 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-// import { useEffect, useState } from "react";
-// import { getCyclesAxiosFunction } from "../service/api";
 import { deleteCycleAxiosFunction } from "../service/api";
+import { useEffect, useState } from "react";
+import { getCycles } from "../service/api";
 
 const schema = z
   .object({
-    selectcycle: z.string().min(1, "Please select a cycle to remove"),
+    selectcycle: z.string().trim().min(1, "Please enter the cycle ID"),
     reasonforremoval: z.enum(["1", "2", "3", "4"], {
       error: "Please select a reason for removal",
     }),
@@ -19,7 +19,7 @@ const schema = z
     quantityavailable: z
       .number({ error: "Quantity is required" })
       .int("Quantity must be a whole number")
-      .min(1, "Quantity must be at least 1"),
+      .min(0, "Quantity must be at least 1"),
     confirmremoval: z.literal(true, {
       error: "You must confirm the removal",
     }),
@@ -36,13 +36,12 @@ async function myFormSubmissionFunction(data) {
   return await deleteCycleAxiosFunction(data);
 }
 
-// const [cycles, setCycles] = useState([]);
-
-// useEffect(() => {
-//   getCyclesAxiosFunction()
-//     .then((response) => setCycles(response.data))
-//     .catch((error) => console.error("Could not load cycles:", error));
-// }, []);
+const [cycles, setCycles] = useState([]);
+useEffect(() => {
+  getCycles()
+    .then((response) => setCycles(response.data))
+    .catch((error) => console.error("Error loading cycles:", error));
+}, []);
 
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
@@ -51,19 +50,26 @@ async function myFormSubmissionFunction(data) {
           <h1 className="fw-bold">Remove a Cycle</h1>
         </div>
 
-        <form onSubmit={handleSubmit(myFormSubmissionFunction)}>
-          <div className="mb-4">
-            <label htmlFor="selectCycle" className="form-label">Cycle Name/Model</label>
-            <select className="form-select" id="selectCycle" {...register("selectcycle")}>
-              <option value="">Choose one to remove</option>
-              <option value="1">Trek Marlin 5 - Mountain Bike</option>
-              <option value="2">Giant Escape 3 - Hybrid Bike</option>
-              <option value="3">Cannondale Quick 4 - Road Bike</option>
-            </select>
-            {errors.selectcycle && <span className="text-danger">{errors.selectcycle.message}</span>}
-          </div>
+    <form onSubmit={handleSubmit(myFormSubmissionFunction)}>
+         <div className="mb-4">
+       <label htmlFor="selectCycle" className="form-label">Choose a Cycle</label>
+        <select
+          className="form-select"
+          id="selectCycle"
+           {...register("selectcycle")}>
+      <option value="">Choose a cycle</option>
+      {cycles.map((cycle) => (
+        <option key={cycle.cid} value={cycle.cid}>
+          {cycle.cid} — {cycle.cname}
+        </option>
+      ))}
+    </select>
+    {errors.selectcycle && (
+      <span className="text-danger">{errors.selectcycle.message}</span>
+    )}
+  </div>
 
-           <div className="mb-4">
+      <div className="mb-4">
             <label htmlFor="reasonForRemoval" className="form-label">Reason for Removal</label>
             <select className="form-select" id="reasonForRemoval" {...register("reasonforremoval")}>
               <option value="">Choose a reason</option>

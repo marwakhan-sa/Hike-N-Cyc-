@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const cycleSchema = mongoose.Schema({
+    cid: {type: String, required: true, unique: true},
     cname: {type: String, required: true},
     ctype: {type: String, required: true},
     cquantity: {type: Number, required: true},

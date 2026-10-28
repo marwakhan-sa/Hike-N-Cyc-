@@ -3,6 +3,12 @@ import Cancellation from '../models/cancellation.js';
 export const cancelBookingController = (req, response) => {
     const { selectbooking, reason, additionalnotes } = req.body;
 
+    console.log("Booking cancellation received:", {
+        selectbooking,
+        reason,
+        additionalnotes,
+    });
+
     const newCancellation = new Cancellation({
         cbbooking: selectbooking,
         cbreason: reason,
@@ -11,6 +17,7 @@ export const cancelBookingController = (req, response) => {
 
     newCancellation.save()
     .then(() => {
+        console.log("Booking cancelled successfully.");
         response.status(201).json({ message: "Booking cancelled successfully" });
     })
     .catch((error) => {

@@ -4,6 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { addCycleAxiosFunction } from "../service/api";
 
 const schema = z.object({
+  cycleid: z
+  .string()
+  .trim()
+  .min(1, "Cycle ID is required"),
   cyclename: z
     .string()
     .trim()
@@ -22,8 +26,8 @@ const schema = z.object({
   condition: z
     .string()
     .trim()
-    .max(255, "Condition must be at most 255 characters")
-   ,
+     .min(1, "Condition is required")
+  .max(255, "Condition must be at most 255 characters"),
 });
 
 function AddCycle() {
@@ -45,6 +49,17 @@ await addCycleAxiosFunction(data);
 
       <form onSubmit={handleSubmit(myFormSubmissionFunction)}>
 
+      <div className="mb-4">
+        <label htmlFor="cycleId" className="form-label">Cycle ID</label>
+        <input
+         type="text"
+         className="form-control"
+          id="cycleId"
+           placeholder="e.g. C001"
+           {...register("cycleid")}
+           />
+          {errors.cycleid && <span className="text-danger">{errors.cycleid.message}</span>}
+      </div>
         <div className="mb-4">
           <label htmlFor="cycleName" className="form-label">Cycle Name / Model</label>
           <input

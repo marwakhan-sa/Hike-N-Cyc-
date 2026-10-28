@@ -29,7 +29,7 @@ export const registerCustomer = (req, response) => {
 export const loginCustomer = (req, response) => {
     const { email, password } = req.body;
 
-    console.log("Customer login request received");
+    console.log("Customer login received:", { email });
     
     Customer.findOne({ custemail: email })
     .then((user) => {

@@ -3,6 +3,15 @@ import Attendance from '../models/attendance.js';
 export const attendanceController = (req, response) => {
     const { selectevent, participant1, participant2, participant3, totalpresent, notes } = req.body;
 
+    console.log("Attendance submission received:", {
+        selectevent,
+        participant1,
+        participant2,
+        participant3,
+        totalpresent,
+        notes,
+    });
+
     const newAttendance = new Attendance({
         attevent: selectevent,
         attp1: participant1,
@@ -14,6 +23,7 @@ export const attendanceController = (req, response) => {
 
     newAttendance.save()
     .then(() => {
+          console.log("Attendance saved successfully");
         response.status(201).json({ message: "Attendance saved successfully" });
     })
     .catch((error) => {

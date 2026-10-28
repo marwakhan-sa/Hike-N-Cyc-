@@ -11,12 +11,14 @@ const schema = z.object({
     .min(2, "Full name must be at least 2 characters")
     .max(100, "Full name must be at most 100 characters"),
   phonenumber: z
-    // .string()
-    // .trim()
-    .regex(/^\+?[0-9]{10,15}$/, "Enter a valid phone number"),
-  rentaldate: z
-  .string()
-  .min(1, "Rental date is required"),
+   .string()
+  .trim()
+  .min(10, "Phone number must be at least 10 characters")
+  .max(15, "Phone number must be at most 15 characters")
+  .regex(/^\+?[0-9]+$/, "Phone number can only contain digits and an optional leading +"),
+ rentaldate: z.iso.date({
+  error: "Please select a valid rental date",
+}),
   days: z
     .number({ error: "Number of days is required" })
     .int("Days must be a whole number")
@@ -49,6 +51,9 @@ async function myFormSubmissionFunction(data) {
               <option value="1">Trek Marlin 5 - Mountain Bike </option>
               <option value="2">Giant Escape 3 - Hybrid Bike </option>
               <option value="3">Cannondale Quick 4 - Road Bike </option>
+               <option value="4">Fat bicycle</option>
+              <option value="5">E-Bicycle</option>
+              <option value="6">BMX bicycle</option>
             </select>
             {errors.cycle && <span className="text-danger">{errors.cycle.message}</span>}
           </div>
@@ -59,15 +64,21 @@ async function myFormSubmissionFunction(data) {
             {errors.fullname && <span className="text-danger">{errors.fullname.message}</span>}
           </div>
 
-          <div className="mb-4">
+         <div className="mb-4">
             <label htmlFor="phone" className="form-label">Phone Number</label>
-            <input type="tel" className="form-control" id="phone" {...register("phonenumber", {valueAsNumber:true})} />
+            <input
+              type="tel"
+              className="form-control"
+              id="phone"
+              placeholder="Enter your phone number"
+              {...register("phonenumber")}
+            />
             {errors.phonenumber && <span className="text-danger">{errors.phonenumber.message}</span>}
           </div>
 
           <div className="mb-4">
             <label htmlFor="rentalDate" className="form-label">Rental Date</label>
-            <input type="date" className="form-control" id="rentalDate" {...register("rentaldate", {valueAsNumber:true})}
+            <input type="date" className="form-control" id="rentalDate" {...register("rentaldate")}
              />
             {errors.rentaldate && <span className="text-danger">{errors.rentaldate.message}</span>}
           </div>
