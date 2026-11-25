@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {rentCycleAxiosFunction} from "../service/api.js";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   cycle: z.string().min(1, "Please select a cycle"),
@@ -27,13 +28,24 @@ const schema = z.object({
 });
 
 function RentCycle() {
+  const navigate = useNavigate();
 const {register, handleSubmit, formState: {errors}} = useForm({
   resolver: zodResolver(schema)
 });
 
 async function myFormSubmissionFunction(data) {   
-  console.log("Form submitted!", data);
-  return await rentCycleAxiosFunction(data);
+try {
+    await rentCycleAxiosFunction(data); // your POST /rent-cycle helper in api.js
+    alert("Cycle rental confirmed!");
+    navigate("/customer-dashboard");
+  } catch (error) {
+    console.error("Rental error:", error);
+    alert(
+      error.response?.data?.message ||
+        error.response?.data ||
+        "Failed to confirm rental"
+    );
+  }
 }
 
   return (

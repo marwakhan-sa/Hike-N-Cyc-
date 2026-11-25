@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { registerCustomerAxiosFunction } from "../service/api.js";
+import { useNavigate, Link } from "react-router-dom";
 
 const schema = z.object({
   fullname: z
@@ -33,15 +34,29 @@ const schema = z.object({
 });
 
 function CustomerRegister() {
-const {register, handleSubmit, formState: {errors}} = useForm({
-  resolver: zodResolver(schema)
-});
+ const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
-async function myFormSubmissionFunction(data) {
-console.log("Form submitted!", data);
-await registerCustomerAxiosFunction(data);
-}
-
+  async function myFormSubmissionFunction(data) {
+    try {
+      await registerCustomerAxiosFunction(data);
+      alert("Registration successful! Please log in.");
+      navigate("/customer-login");
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Registration failed"
+      );
+    }
+  }
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
       <div className="container pt-5 pb-5 col-md-4">

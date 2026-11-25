@@ -1,5 +1,5 @@
 import Cycle from '../models/cycle.js';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
 export const cycleController = (req, response) => {
     const{ cycleid, cyclename, cycletype, cyclequantity, rentalprice, condition } = req.body;
@@ -22,6 +22,7 @@ export const cycleController = (req, response) => {
  newCycle.save()
 .then(() => {
     response.status(201).json({ message: "Cycle added successfully" });
+    navigate("/admin-dashboard");
 })
 .catch((error) => {
     console.error("Error adding cycle:", error);
@@ -32,8 +33,8 @@ export const cycleController = (req, response) => {
 //Get cycles
 export const getCyclesController = async (req, res) => {
   try {
-    const cycles = await Cycle.find();
-    res.json(cycles);
+    const cycles = await Cycle.find(); //db ki cycles sumra record de, fetch that and store it in cycles variable.
+    res.json(cycles); //sends the cycles' data in json format to the frontend
   } catch (error) {
     console.error("Error fetching cycles:", error);
     res.status(500).json({ message: "Error fetching cycles" });
@@ -53,7 +54,7 @@ export const editCycleController = (req, response) => {
     });
      console.log("Edit request received for:", id);
     console.log("Request body:", req.body);
-    Cycle.findOneAndUpdate({ cid: id }, {
+    Cycle.findOneAndUpdate({ cid: id }, { 
         cname: cyclename,
         ctype: cycletype,
         cquantity: cyclequantity,
@@ -62,6 +63,7 @@ export const editCycleController = (req, response) => {
     })
     .then(() => {
     response.status(200).json({ message: "Cycle updated successfully" });
+    navigate("/admin-dashboard");
 })
     .catch((error) => {
         console.error("Error updating cycle:", error);
@@ -72,13 +74,14 @@ export const editCycleController = (req, response) => {
 //delete controller
 export const deleteCycleController = (req, response) => {
     const { id } = req.params;
- console.log("Delete cycle request received:", { cycleid: id });
+//  console.log("Delete cycle request received:", { cycleid: id });
  console.log("Delete request received for:", id);
 
     Cycle.findOneAndDelete({ cid: id })
     .then(() => {
          console.log("Cycle deleted successfully:", id);
         response.status(200).json({ message: "Cycle deleted successfully" });
+        navigate("/admin-dashboard");
     })
     .catch((error) => {
         console.error("Error deleting cycle:", error);

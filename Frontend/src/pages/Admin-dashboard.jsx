@@ -1,7 +1,36 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { getCycles, getRentals, getComplaints, getAttendance } from "../service/api"
 
 function AdminDashboard() {
+  const [cycles, setCycles] = useState([]);
+  const [rentals, setRentals] = useState([]);
+  const [complaints, setComplaints] = useState([]);
+  const [attendance, setAttendance] = useState([]);
+
+  //fetches data from the backend when the page opens
+  useEffect(() => {
+    getCycles()
+    .then((res) => setCycles(Array.isArray(res.data) ? res.data : []))
+    .catch((error) => console.error("Error fetching cycles:", error));
+
+  getRentals()
+    .then((res) => setRentals(Array.isArray(res.data) ? res.data : []))
+    .catch((error) => console.error("Error fetching rentals:", error));
+
+  getComplaints()
+    .then((res) => setComplaints(Array.isArray(res.data) ? res.data : []))
+    .catch((error) => console.error("Error fetching complaints:", error));
+
+  getAttendance()
+    .then((res) => setAttendance(Array.isArray(res.data) ? res.data : []))
+    .catch((error) => console.error("Error fetching attendance:", error));
+  }, []);
+
+  //total number of cycles = sum of all quantities
+  const totalCycles = cycles.reduce((sum, c) => sum + Number(c.cquantity), 0);
+
   return (
     <div className="d-flex" style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
 
@@ -85,7 +114,7 @@ function AdminDashboard() {
             <div className="col-md-4">
               <div className="card text-center border-0 shadow-sm">
                 <div className="card-body">
-                  <h2 className="fw-bold" style={{ color: "#254631" }}>10</h2>
+                  <h2 className="fw-bold" style={{ color: "#254631" }}>{totalCycles}</h2>
                   <p className="card-text mb-0">Cycles in Inventory</p>
                 </div>
               </div>
@@ -94,7 +123,7 @@ function AdminDashboard() {
             <div className="col-md-4">
               <div className="card text-center border-0 shadow-sm">
                 <div className="card-body">
-                  <h2 className="fw-bold" style={{ color: "#254631" }}>6</h2>
+                  <h2 className="fw-bold" style={{ color: "#254631" }}>{rentals.length}</h2>
                   <p className="card-text mb-0">Active Bookings</p>
                 </div>
               </div>
@@ -103,7 +132,7 @@ function AdminDashboard() {
             <div className="col-md-4">
               <div className="card text-center border-0 shadow-sm">
                 <div className="card-body">
-                  <h2 className="fw-bold" style={{ color: "#254631" }}>2</h2>
+                  <h2 className="fw-bold" style={{ color: "#254631" }}>{complaints.length}</h2>
                   <p className="card-text mb-0">Complaints Logged</p>
                 </div>
               </div>
@@ -125,24 +154,20 @@ function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Trek Marlin 5</td>
-                      <td>Mountain Bike</td>
-                      <td>4</td>
-                      <td>1500</td>
-                    </tr>
-                    <tr>
-                      <td>Giant Escape 3</td>
-                      <td>Hybrid Bike</td>
-                      <td>6</td>
-                      <td>1200</td>
-                    </tr>
-                    <tr>
-                      <td>Cannondale Quick 4</td>
-                      <td>Road Bike</td>
-                      <td>3</td>
-                      <td>1800</td>
-                    </tr>
+                    {cycles.length === 0 ? (
+                      <tr>
+                        <td colSpan="4" className="text-center text-muted">No cycles yet</td>
+                      </tr>
+                    ) : (
+                      cycles.map((c) => (
+                        <tr key={c._id}>
+                          <td>{c.cname}</td>
+                          <td>{c.ctype}</td>
+                          <td>{c.cquantity}</td>
+                          <td>{c.rprice}</td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -163,16 +188,19 @@ function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Hammad</td>
-                      <td>Saturday Hike</td>
-                      <td>2026-09-20</td>
-                    </tr>
-                    <tr>
-                      <td>Khan</td>
-                      <td>Giant Escape 3 (Rental)</td>
-                      <td>2026-09-22</td>
-                    </tr>
+                    {rentals.length === 0 ? (
+                      <tr>
+                        <td colSpan="3" className="text-center text-muted">No bookings yet</td>
+                      </tr>
+                    ) : (
+                      rentals.map((r) => (
+                        <tr key={r._id}>
+                          <td>{r.rname}</td>
+                          <td>{r.rcycle}</td>
+                          <td>{new Date(r.rdate).toLocaleDateString()}</td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -193,16 +221,64 @@ function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Khan</td>
-                      <td>Bike was not available at pickup time</td>
-                      <td><span className="badge bg-warning text-dark">Pending</span></td>
+                    {complaints.length === 0 ? (
+                      <tr>
+                        <td colSpan="3" className="text-center text-muted">No complaints yet</td>
+                      </tr>
+                    ) : (
+                      complaints.map((c) => (
+                        <tr key={c._id}>
+                          <td>{c.compname}</td>
+                          <td>{c.compsubject}</td>
+                          <td>
+                            {c.compstatus === "Resolved" ? (
+                              <span className="badge" style={{ backgroundColor: "#254631" }}>Resolved</span>
+                            ) : (
+                              <span className="badge bg-warning text-dark">Pending</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* Attendance table */}
+          <div className="mb-5">
+            <h4 className="fw-bold mb-3">Attendance</h4>
+            <div className="card border-0 shadow-sm">
+              <div className="table-responsive">
+                <table className="table table-hover mb-0 align-middle">
+                  <thead style={{ backgroundColor: "#254631" }}>
+                    <tr className="text-white">
+                      <th>Event</th>
+                      <th>Participant 1</th>
+                      <th>Participant 2</th>
+                      <th>Participant 3</th>
+                      <th>Total Present</th>
+                      <th>Notes</th>
                     </tr>
-                    <tr>
-                      <td>Marva</td>
-                      <td>Route was longer than advertised</td>
-                      <td><span className="badge" style={{ backgroundColor: "#254631" }}>Resolved</span></td>
-                    </tr>
+                  </thead>
+                  <tbody>
+                    {attendance.length === 0 ? (
+                      <tr>
+                        <td colSpan="6" className="text-center text-muted">No attendance recorded yet</td>
+                      </tr>
+                    ) : (
+                      attendance.map((a) => (
+                        <tr key={a._id}>
+                          <td>{a.attevent}</td>
+                          <td>{a.attp1 ? "Present" : "Absent"}</td>
+                          <td>{a.attp2 ? "Present" : "Absent"}</td>
+                          <td>{a.attp3 ? "Present" : "Absent"}</td>
+                          <td>{a.atttotal}</td>
+                          <td>{a.attnotes}</td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

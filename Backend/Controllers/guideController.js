@@ -1,16 +1,19 @@
+import bcrypt from 'bcryptjs';
 import Guide from '../models/guide.js';
+import { signAccessToken } from "../utils/tokens.js";
 
-export const registerGuide = (req, response) => {
+export const registerGuide = async (req, response) => {
     const { fullname, email, guidetype, experience, password } = req.body;
     console.log("Guide registration received:", {
         fullname, email, guidetype, experience
     });
+    const hashedPassword = await bcrypt.hash(password, 12);
     const newGuide = new Guide({
         gname: fullname,
         gemail: email,
         gtype: guidetype,
         gexperience: experience,
-        gpassword: password,
+        gpassword: hashedPassword,
     });
     newGuide.save()
     .then(() => {
@@ -21,15 +24,20 @@ export const registerGuide = (req, response) => {
         response.status(500).json({ message: "Error registering guide" });
     });
 }
+//guide login
 export const loginGuide = (req, response) => {
     const { email, password } = req.body;
     console.log("Guide login received:", { email });
     Guide.findOne({ gemail: email })
-    .then((user) => {
-        if (!user || user.gpassword !== password) {
+    .then(async(user) => {
+        if (!user || !(await bcrypt.compare(password, user.gpassword))) {
             return response.status(401).json({ message: "Invalid email or password" });
         }
-        response.status(200).json({ message: "Login successful" });
+     const accessToken = signAccessToken({
+        _id: user._id,
+        role: "guide"
+      });
+       response.set("Cache-Control", "no-store").status(200).json({ message: "Login successful", accessToken });
     })
     .catch((error) => {
         console.error("Error logging in:", error);

@@ -7,6 +7,7 @@ import GuideLogin from "./pages/Guide-login";
 import GuideRegister from "./pages/Guide-register";
 import CustomerLogin from "./pages/Customer-login";
 import CustomerRegister from "./pages/Customer-register";
+import CustomerDashboard from "./pages/Customer-dashboard.jsx";
 
 // Admin dashboard + admin components
 import AdminDashboard from "./pages/Admin-dashboard";
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
   { path: "/guide-register", element: <GuideRegister /> },
   { path: "/customer-login", element: <CustomerLogin /> },
   { path: "/customer-register", element: <CustomerRegister /> },
+{ path: "/customer-dashboard", element: <CustomerDashboard /> },
 
   // Admin dashboard
   { path: "/admin-dashboard", element: <AdminDashboard /> },

@@ -1,7 +1,8 @@
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {submitComplaintAxiosFunction} from "../service/api.js";
+import { submitComplaintAxiosFunction } from "../service/api.js";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   fullname: z
@@ -9,10 +10,10 @@ const schema = z.object({
     .trim()
     .min(2, "Full name must be at least 2 characters")
     .max(100, "Full name must be at most 100 characters"),
- email: z
- .string()
- .trim()
- .pipe(z.email("Enter a valid email")),
+  email: z
+    .string()
+    .trim()
+    .pipe(z.email("Enter a valid email")),
   relatedevent: z.enum(["hike", "cycling", "rental", "other"], {
     error: "Please select a related event or booking",
   }),
@@ -29,14 +30,29 @@ const schema = z.object({
 });
 
 function SubmitComplaint() {
-const { register, handleSubmit, formState: { errors } } = useForm({
-  resolver: zodResolver(schema)
-});
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
-async function myFormSubmissionFunction(data) {
-  console.log("Form submitted!", data);
-  return await submitComplaintAxiosFunction(data);
-}
+  async function myFormSubmissionFunction(data) {
+    try {
+      await submitComplaintAxiosFunction(data);
+      alert("Complaint submitted successfully!");
+      navigate("/customer-dashboard");
+    } catch (error) {
+      console.error("Complaint error:", error);
+      alert(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Failed to submit complaint"
+      );
+    }
+  }
 
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
@@ -72,8 +88,13 @@ async function myFormSubmissionFunction(data) {
 
           <div className="mb-4">
             <label htmlFor="subject" className="form-label">Subject</label>
-            <input type="text" className="form-control" id="subject" placeholder="Brief summary of the issue"
-             {...register("subject")} />
+            <input
+              type="text"
+              className="form-control"
+              id="subject"
+              placeholder="Brief summary of the issue"
+              {...register("subject")}
+            />
             {errors.subject && <span className="text-danger">{errors.subject.message}</span>}
           </div>
 
@@ -86,7 +107,7 @@ async function myFormSubmissionFunction(data) {
               placeholder="Describe what happened"
               {...register("description")}
             ></textarea>
-            {errors.description && <span className="text-danger">{errors.description.message}</span>}  
+            {errors.description && <span className="text-danger">{errors.description.message}</span>}
           </div>
 
           <div className="mb-4">

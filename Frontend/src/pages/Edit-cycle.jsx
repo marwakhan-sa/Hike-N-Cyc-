@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {editCycleAxiosFunction} from "../service/api.js";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   cycleid: z.string().trim().min(1, "Cycle ID is required"),
@@ -28,12 +29,15 @@ const schema = z.object({
 });
 
 function EditCycle() {
+const navigate = useNavigate();
+
 const {register, handleSubmit, formState: { errors }} = useForm({
   resolver: zodResolver(schema)
 });
 
 async function myFormSubmissionFunction(data) { 
   console.log("Form submitted!", data);
+  navigate("/admin-dashboard");
  const response= await editCycleAxiosFunction(data);
    console.log(response.data.message);
 }

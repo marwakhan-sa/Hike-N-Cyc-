@@ -16,13 +16,27 @@ const schema = z.object({
 });
 
 function MarkAttendance() {
-const {register, handleSubmit, formState: {errors}} = useForm({
-  resolver: zodResolver(schema)
-});
-
-function myFormSubmissionFunction(data) {
-  console.log("Form submitted!", data);
-  return markAttendanceAxiosFunction(data);
+const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+  async function myFormSubmissionFunction(data) {
+ try {
+      await markAttendanceAxiosFunction(data); // keep your exact attendance function name from service/api.js
+      alert("Attendance marked successfully!");
+      reset(); // clears all form fields so the guide can mark another participant
+    } catch (error) {
+      console.error("Attendance error:", error);
+      alert(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Failed to mark attendance"
+      );
+    }
 }
 
   return (

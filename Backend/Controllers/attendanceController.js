@@ -12,15 +12,14 @@ export const attendanceController = (req, response) => {
         notes,
     });
 
-    const newAttendance = new Attendance({
-        attevent: selectevent,
-        attp1: participant1,
-        attp2: participant2,
+    const newAttendance = new Attendance({ 
+        attevent: selectevent,  
+        attp1: participant1,    
+        attp2: participant2,     
         attp3: participant3,
         atttotal: totalpresent,
         attnotes: notes,
     });
-
     newAttendance.save()
     .then(() => {
           console.log("Attendance saved successfully");
@@ -31,3 +30,12 @@ export const attendanceController = (req, response) => {
         response.status(500).json({ message: "Error saving attendance" });
     });
 }
+export const getAttendanceController = async (req, res) => {
+  try {
+    const records = await Attendance.find();
+    res.json(records);
+  } catch (error) {
+    console.error("Error fetching attendance:", error);
+    res.status(500).json({ message: "Error fetching attendance" });
+  }
+};

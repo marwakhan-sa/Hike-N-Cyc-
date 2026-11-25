@@ -1,32 +1,32 @@
+import "dotenv/config";
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cycleRoutes from './Routes/cycleRoutes.js';
 import customerRoutes from "./Routes/customerRoutes.js";
 import guideRoutes from "./Routes/guideRoutes.js";
-import rentalRoutes from "./Routes/rentalRoutes.js";
-import attendanceRoutes from "./Routes/attendanceRoutes.js";
-import cancelBookingRoutes from "./Routes/cancelBookingRoutes.js";
-import complaintRoutes from "./Routes/complaintRoutes.js";
 import adminRoutes from "./Routes/adminRoutes.js";
+import protectedRoutes from "./Routes/protected.js";
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use("/cycles", cycleRoutes);
+if (!process.env.ACCESS_TOKEN_SECRET) {
+  console.error("Missing environment variable: ACCESS_TOKEN_SECRET");
+  process.exit(1);
+}
+
+const app = express(); //creates an express appliction/server
+app.use(cors()); //Enables CORS so frontend can send requests to this backend
+app.use(express.json());//Allows the server to read JSON data sent from the frontend
+app.use("/cycles", cycleRoutes); //connects route to the path
 app.use("/customer", customerRoutes);
 app.use("/guide", guideRoutes);
-app.use("/rent-cycle", rentalRoutes);
-app.use("/mark-attendance", attendanceRoutes);
-app.use("/cancel-booking", cancelBookingRoutes);
-app.use("/submit-complaint", complaintRoutes);
 app.use("/admin", adminRoutes);
+app.use("/", protectedRoutes);
 
 app.listen(5000,() => {
     console.log("Server is running on port 5000");
 })
 
-
+//connects app to MongoDB
 mongoose.connect("mongodb+srv://marwakhansa1_db_user:12345@cluster0.pz9szue.mongodb.net/",)
 .then(() => {
     console.log("MongoDB connected successfully");

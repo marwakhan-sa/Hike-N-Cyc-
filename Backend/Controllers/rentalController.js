@@ -29,3 +29,13 @@ export const rentalController = (req, response) => {
         response.status(500).json({ message: "Error saving rental" });
     });
 }
+//Get rentals
+export const getRentalsController = async (req, res) => {
+  try {
+    const rentals = await Rental.find();
+    res.json(rentals);
+  } catch (error) {
+    console.error("Error fetching rentals:", error);
+    res.status(500).json({ message: "Error fetching rentals" });
+  }
+};

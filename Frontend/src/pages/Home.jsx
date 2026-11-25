@@ -6,8 +6,18 @@ import restImg from "../assets/rest.jpeg";
 import cyclesImg from "../assets/cycles.jpeg";
 import ourRide from "../assets/our-ride.jpeg";
 import aboutUs from "../assets/who-are-we.jpeg";
+import { useEffect, useState } from "react";
+import { getCycles } from "../service/api"; 
 
 export default function Home() {
+const [cycles, setCycles] = useState([]);
+
+  useEffect(() => {
+    getCycles()
+      .then((res) => setCycles(Array.isArray(res.data) ? res.data : []))
+      .catch((err) => console.error("Error fetching cycles:", err));
+  }, []);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -213,6 +223,38 @@ export default function Home() {
         </div>
       </div>
 
+{/* Available Cycles Section (Public GET /cycles) */}
+      <div id="available-cycles" className="container my-5">
+        <h2 className="text-center mb-4">Available Cycles for Rent</h2>
+        <div className="row g-4">
+          {cycles.length === 0 ? (
+            <p className="text-center text-muted">No cycles available right now.</p>
+          ) : (
+            cycles.map((cycle) => (
+              <div className="col-md-4" key={cycle._id || cycle.cid}>
+                <div className="card h-100 shadow-sm">
+                  <div className="card-body">
+                    <h5 className="card-title">{cycle.cname}</h5>
+                    <p className="card-text">
+                      <strong>Type:</strong> {cycle.ctype} <br />
+                      <strong>Rent:</strong> Rs. {cycle.rprice} / day <br />
+                      <strong>Available Quantity:</strong> {cycle.cquantity} <br />
+                      {cycle.ccondition && (
+                        <>
+                          <strong>Condition:</strong> {cycle.ccondition}
+                        </>
+                      )}
+                    </p>
+                    <Link to="/rentCycle" className="btn btn-success">
+                      Rent This Cycle
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
       <div id="why-us" className="container why-us">
         <h2 className="text-center">Why Choose Us</h2>
         <div className="row g-4 mt-2">

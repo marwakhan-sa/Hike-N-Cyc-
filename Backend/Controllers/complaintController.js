@@ -28,3 +28,14 @@ export const complaintController = (req, response) => {
         response.status(500).json({ message: "Error submitting complaint" });
     });
 }
+
+//Get complaints
+export const getComplaintsController = async (req, res) => {
+  try {
+    const complaints = await Complaint.find();
+    res.json(complaints);
+  } catch (error) {
+    console.error("Error fetching complaints:", error);
+    res.status(500).json({ message: "Error fetching complaints" });
+  }
+};

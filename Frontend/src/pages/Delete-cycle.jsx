@@ -4,6 +4,7 @@ import { z } from "zod";
 import { deleteCycleAxiosFunction } from "../service/api";
 import { useEffect, useState } from "react";
 import { getCycles } from "../service/api";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -27,12 +28,15 @@ const schema = z
   ;
 
 function DeleteCycle() {
+const navigate = useNavigate();
+
 const {register, handleSubmit, formState: {errors}} = useForm({
   resolver: zodResolver(schema)
 });
 
 async function myFormSubmissionFunction(data) {
   console.log("Form submitted!", data);
+  navigate("/admin-dashboard");
   return await deleteCycleAxiosFunction(data);
 }
 

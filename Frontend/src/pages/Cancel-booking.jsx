@@ -1,7 +1,8 @@
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {cancelBookingAxiosFunction} from "../service/api.js";
+import { cancelBookingAxiosFunction } from "../service/api.js";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   selectbooking: z
@@ -21,14 +22,29 @@ const schema = z.object({
 });
 
 function CancelBooking() {
-  const {register, handleSubmit, formState: {errors}} = useForm({
-    resolver: zodResolver(schema)
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
   });
 
-async function myFormSubmissionFunction(data) {
-  console.log("Form submitted!", data);
-  return await cancelBookingAxiosFunction(data);
-}
+  async function myFormSubmissionFunction(data) {
+    try {
+      await cancelBookingAxiosFunction(data);
+      alert("Booking cancelled successfully!");
+      navigate("/customer-dashboard");
+    } catch (error) {
+      console.error("Cancel booking error:", error);
+      alert(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Failed to cancel booking"
+      );
+    }
+  }
 
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
@@ -76,8 +92,11 @@ async function myFormSubmissionFunction(data) {
           </div>
 
           <div className="mb-4 form-check">
-            <input type="checkbox" className="form-check-input" id="confirmCancel"
-            {...register("confirmcancel")}
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="confirmCancel"
+              {...register("confirmcancel")}
             />
             {errors.confirmcancel && <span className="text-danger">{errors.confirmcancel.message}</span>}
             <label htmlFor="confirmCancel" className="form-check-label">

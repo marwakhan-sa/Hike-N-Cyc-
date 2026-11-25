@@ -3,6 +3,8 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { loginAdminAxiosFunction } from "../service/api.js";
+import { useNavigate } from "react-router-dom";
+
 
 const loginSchema = z.object({
   email: z
@@ -16,18 +18,22 @@ const loginSchema = z.object({
 });
 
 function AdminLogin() {
+ const navigate = useNavigate();
   const {register, handleSubmit, formState: {errors}} = useForm({
     resolver: zodResolver(loginSchema)
   });
 
-  async function myFormSubmissionFunction(data) {
-  try {
-    const response = await loginAdminAxiosFunction(data);
-    console.log(response.data); // "Login successful"
-  } catch (error) {
-    console.log(error.response?.data || "Login failed");
+ async function myFormSubmissionFunction(data) {
+    try {
+      const response = await loginAdminAxiosFunction(data);
+      console.log(response.data); // "Login successful"
+      navigate("/admin-dashboard");
+    } catch (error) {
+      console.log(error.response?.data || "Login failed");
+      alert(error.response?.data || "Login failed");
+    }
   }
-}
+  
   return (
      <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
     <div className="container pt-5 col-md-4" >

@@ -9,5 +9,15 @@ const attendanceSchema = new mongoose.Schema({
     attnotes: {type: String, default: ""},
 });
 
+export const getAttendanceController = async (req, res) => {
+  try {
+    const records = await Attendance.find();
+    res.json(records);
+  } catch (error) {
+    console.error("Error fetching attendance:", error);
+    res.status(500).json({ message: "Error fetching attendance" });
+  }
+};
+
 const Attendance = mongoose.model("Attendance", attendanceSchema);
 export default Attendance;

@@ -6,6 +6,7 @@ const complaintSchema = new mongoose.Schema({
     compevent: {type: String, required: true},
     compsubject: {type: String, required: true},
     compdescription: {type: String, required: true},
+       compstatus: {type: String, default: "Pending"},
 });
 
 const Complaint = mongoose.model("Complaint", complaintSchema);

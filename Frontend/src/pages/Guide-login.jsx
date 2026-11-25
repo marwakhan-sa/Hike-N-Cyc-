@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { loginGuideAxiosFunction } from "../service/api";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
  email: z
@@ -16,15 +17,28 @@ const schema = z.object({
 });
 
 function GuideLogin() {
-
-const {register, handleSubmit, formState: { errors }} = useForm({
-  resolver: zodResolver(schema)
-});
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
 async function myFormSubmissionFunction(data) {
-  console.log("Form submitted!", data);
-  return await loginGuideAxiosFunction(data);
-} 
+  try {
+    await loginGuideAxiosFunction(data);
+    navigate("/mark-attendance");
+  } catch (error) {
+    console.error("Guide login error:", error);
+    alert(
+      error.response?.data?.message ||
+        error.response?.data ||
+        "Invalid email or password"
+    );
+  }
+}
 
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>

@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { registerGuideAxiosFunction } from "../service/api.js";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -35,15 +36,29 @@ const schema = z
 
 function GuideRegister() {
 
-const {register, handleSubmit, formState: {errors}} = useForm({
-  resolver: zodResolver(schema)
-} );
+const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
-async function myFormSubmissionFunction(data) {
-  console.log("Form submitted!", data);
-  return await registerGuideAxiosFunction(data);
-}
-
+  async function myFormSubmissionFunction(data) {
+    try {
+      await registerGuideAxiosFunction(data);
+      alert("Guide registration successful! Please log in.");
+      navigate("/guide-login");
+    } catch (error) {
+      console.error("Guide registration error:", error);
+      alert(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Registration failed"
+      );
+    }
+  }
   return (
     <div style={{ backgroundColor: "#faf4e6", minHeight: "100vh" }}>
       <div className="container pt-5 pb-5 col-md-4">

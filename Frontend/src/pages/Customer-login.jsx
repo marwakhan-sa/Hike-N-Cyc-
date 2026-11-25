@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { loginCustomerAxiosFunction } from "../service/api.js";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   email: z
@@ -15,13 +16,27 @@ const schema = z.object({
 });
 
 function CustomerLogin() {
-  const {register, handleSubmit, formState: {errors}}  = useForm({
-    resolver: zodResolver(schema)
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
   });
 
 async function myFormSubmissionFunction(data) {
-  console.log("Form submitted!", data);
-  await loginCustomerAxiosFunction(data);
+ try {
+      await loginCustomerAxiosFunction(data);
+      navigate("/customer-dashboard");
+    } catch (error) {
+      console.error("Customer login error:", error);
+      alert(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Invalid email or password"
+      );
+    }
 }
 
   return (
